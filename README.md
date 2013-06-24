@@ -78,6 +78,24 @@ available:
     
     emails.first.body.should have_content("Way to go, champ!")
 
+## How does it work?
+
+When `wait_for_emails` is called, Mailtruck connects to a service that will
+listen for email being received at the addresses it has provided with the
+`email_address` method. The code block passed to `wait_for_emails` is then
+run, and assuming it sends emails to the provided addresses, they will get
+posted back to the Mailtruck back end service. They messages are then passed
+to the listener and returned as instances of `Mailtruck::Email`.
+
+## Security
+
+There is none currently, so **consider any emails you send through Mailtruck
+public**. This may not be an issue if you're just sending dummy test data and
+content that's not sensitive, but if there's anything in your emails that
+you want to keep private then don't use Mailtruck.
+
+Making Mailtruck more secure is definitely a future possibility.
+
 ## Tests
 
 Simply run:
