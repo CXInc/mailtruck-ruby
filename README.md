@@ -1,5 +1,7 @@
 # Mailtruck
 
+[![Build Status](https://travis-ci.org/CXInc/mailtruck-ruby.png)](https://travis-ci.org/CXInc/mailtruck-ruby)
+
 There are occasions when it's necessary to receive an email and follow a link
 as part of an integration test, for instance email confirmation. When the
 email is being sent from the app where the test is running, there are some
