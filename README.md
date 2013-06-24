@@ -25,58 +25,66 @@ Or install it yourself with:
 
 ### Quick Start 
 
-    mailtruck = Mailtruck.new
+```ruby
+mailtruck = Mailtruck.new
 
-    # an email address where Mailtruck can pick up your email
-    address = mailtruck.email_address
-    # => somerandomstring@mailtruck.bruzilla.com
+# an email address where Mailtruck can pick up your email
+address = mailtruck.email_address
+# => somerandomstring@mailtruck.bruzilla.com
 
-    # Mailtruck will wait until you receive
-    emails = mailtruck.wait_for_emails do
-      # YOUR CODE TO SEND EMAIL TO address HERE
-    end
+# Mailtruck will wait until you receive
+emails = mailtruck.wait_for_emails do
+  # YOUR CODE TO SEND EMAIL TO address HERE
+end
 
-    emails.each do |email|
-      puts "Email to, from, subject, body: #{email.to}, #{email.from}, " +
-           "#{email.subject}, #{email.body}"
-    end
+emails.each do |email|
+  puts "Email to, from, subject, body: #{email.to}, #{email.from}, " +
+       "#{email.subject}, #{email.body}"
+end
+```
 
 ### Configuration
 
-    Mailtruck.configure do |config|
-      # host where emails will be sent, defaults to mailtruck.bruzilla.com
-      config.email_host = "example.com"
+```ruby
+Mailtruck.configure do |config|
+  # host where emails will be sent, defaults to mailtruck.bruzilla.com
+  config.email_host = "example.com"
 
-      # Mailtruck server, defaults to http://mailtruck.herokuapp.com/faye
-      config.receiver_url = "http://example.com/faye"
+  # Mailtruck server, defaults to http://mailtruck.herokuapp.com/faye
+  config.receiver_url = "http://example.com/faye"
 
-      # timeout in seconds when waiting for email, defaults to 30
-      config.timeout = 60
-    end
+  # timeout in seconds when waiting for email, defaults to 30
+  config.timeout = 60
+end
+```
 
 ### Multiple emails
 
 When multiple emails are being sent, ask for the number of emails needed and
 it will wait for that number of emails.
 
-    mailtruck = Mailtruck.new
+```ruby
+mailtruck = Mailtruck.new
 
-    addresses = [mailtruck.email_address, mailtruck.email_address]
+addresses = [mailtruck.email_address, mailtruck.email_address]
 
-    emails = mailtruck.wait_for_emails do
-      # YOUR CODE TO SEND EMAIL TO EACH ADDRESS IN addresses HERE
-    end
+emails = mailtruck.wait_for_emails do
+  # YOUR CODE TO SEND EMAIL TO EACH ADDRESS IN addresses HERE
+end
+```
 
 ### Capybara
 
 When running Mailtruck in Capybara tests, the usual helper methods are
 available:
 
-    emails = mailtruck.wait_for_emails do
-      # YOUR CODE TO SEND EMAIL TO address HERE
-    end
-    
-    emails.first.body.should have_content("Way to go, champ!")
+```ruby
+emails = mailtruck.wait_for_emails do
+  # YOUR CODE TO SEND EMAIL TO address HERE
+end
+
+emails.first.body.should have_content("Way to go, champ!")
+```
 
 ## How does it work?
 
