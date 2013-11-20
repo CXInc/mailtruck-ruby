@@ -1,13 +1,7 @@
 require "securerandom"
 require "faye"
 
-require "mailtruck/configuration"
-require "mailtruck/email"
-require "mailtruck/email_address"
-require "mailtruck/receiver"
-require "mailtruck/version"
-
-class Mailtruck
+module Mailtruck
 
   class Timeout < StandardError; end
 
@@ -32,37 +26,16 @@ class Mailtruck
     @configuration ||= Configuration.new
   end
 
-  # Generates an email address that Mailtruck can receive email at.
-  #
-  # @example
-  #   mailtruck = Mailtruck.new
-  #   address = mailtruck.email_address
-  #
-  #   emails = mailtruck.wait_for_emails do
-  #     MyApp.send_email_to(address)
-  #   end
-  #   
-  #
-  # @yield Block to run that should trigger emails
-  # @return [String] an email address
-  def email_address
-    address = EmailAddress.random
-    addresses << address
-
-    address.to_s
-  end
-
-  # Waits for emails to be sent to #email_address and returns them.
-  #
-  # @return [Array<Mailtruck::Email>] the received emails
-  def wait_for_emails(&block)
-    Receiver.wait_for(addresses, block)
-  end
-
-  private
-
-  def addresses
-    @addresses ||= []
+  # @return [Mailtruck::Truck] a mailtruck instance
+  def self.start
+    Mailtruck::Truck.new
   end
 
 end
+
+require "mailtruck/configuration"
+require "mailtruck/email"
+require "mailtruck/email_address"
+require "mailtruck/receiver"
+require "mailtruck/truck"
+require "mailtruck/version"

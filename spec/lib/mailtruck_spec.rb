@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 
 describe Mailtruck do
 
-  let(:mailtruck) { Mailtruck.new }
+  let(:mailtruck) { Mailtruck.start }
 
   before(:each) do
     Mailtruck.configure do |config|

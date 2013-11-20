@@ -28,7 +28,7 @@ Or install it yourself with:
 ### Quick Start 
 
 ```ruby
-mailtruck = Mailtruck.new
+mailtruck = Mailtruck.start
 
 # an email address where Mailtruck can pick up your email
 address = mailtruck.email_address
@@ -66,7 +66,7 @@ When multiple emails are being sent, ask for the number of emails needed and
 it will wait for that number of emails.
 
 ```ruby
-mailtruck = Mailtruck.new
+mailtruck = Mailtruck.start
 
 addresses = [mailtruck.email_address, mailtruck.email_address]
 

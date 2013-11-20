@@ -1,3 +1,3 @@
-class Mailtruck
-  VERSION = "0.0.1"
+module Mailtruck
+  VERSION = "0.1.0"
 end
