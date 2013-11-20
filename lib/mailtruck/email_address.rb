@@ -17,7 +17,6 @@ class Mailtruck::EmailAddress
   private
 
   def self.random_string
-    # SecureRandom.urlsafe_base64
-    "bob"
+    SecureRandom.urlsafe_base64
   end
 end
