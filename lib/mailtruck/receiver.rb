@@ -14,11 +14,17 @@ class Mailtruck::Receiver
 
   def wait(block)
     Timeout::timeout(Mailtruck.configuration.timeout) do
-      EM.run {
-        subscribe_to_addresses
+      Thread.new do
+        EM.run {
+          subscribe_to_addresses
 
-        block.call
-      }
+          block.call
+        }
+      end
+    end
+
+    while(missing_emails) do
+      sleep 0.1
     end
 
     @emails
@@ -29,9 +35,12 @@ class Mailtruck::Receiver
   private
 
   def subscribe_to_addresses
-    client.subscribe("/bob") do |message|
-      @emails << Mailtruck::Email.new(message)
-      check_emails
+    @addresses.each do |address|
+      channel = "/" + address.prefix
+
+      client.subscribe(channel) do |message|
+        @emails << Mailtruck::Email.new(message)
+      end
     end
   end
 
@@ -39,10 +48,8 @@ class Mailtruck::Receiver
     @client ||= Faye::Client.new(Mailtruck.configuration.receiver_url)
   end
 
-  def check_emails
-    if @emails.size >= @addresses.size
-      EM.stop_event_loop
-    end
+  def missing_emails
+    @emails.size < @addresses.size
   end
 
 end
